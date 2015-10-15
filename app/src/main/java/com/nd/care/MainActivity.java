@@ -9,34 +9,30 @@ import android.widget.ListView;
 
 import java.util.Arrays;
 
-public class MainActivity extends ListActivity
-{
+public class MainActivity extends ListActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		getListView().setAdapter(
-				new ArrayAdapter<String>(this,
-						android.R.layout.simple_list_item_1, Arrays.asList(
-								"Simple Adapter Text", "MultiItemStyleText")));
-	}
+        getListView().setAdapter(
+                new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1, Arrays.asList(
+                        "Simple Adapter Text", "MultiItemStyleText")));
+    }
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id)
-	{
-		Intent intent = null;
-		switch (position)
-		{
-		case 0:
-			intent = new Intent(this, SimpleTestActivity.class);
-			break;
-		case 1:
-			intent = new Intent(this, ChatActivity.class);
-			break;
-		}
-		if (intent != null)
-			startActivity(intent);
-	}
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = null;
+        switch (position) {
+            case 0:
+                intent = new Intent(this, SimpleTestActivity.class);
+                break;
+            case 1:
+                intent = new Intent(this, ChatActivity.class);
+                break;
+        }
+        if (intent != null)
+            startActivity(intent);
+    }
 }
