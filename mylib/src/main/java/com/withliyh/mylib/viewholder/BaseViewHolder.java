@@ -11,17 +11,24 @@ import android.widget.TextView;
 /**
  * Created by Administrator on 2015/10/13.
  */
-public class BaseViewHolder {
+public class BaseViewHolder implements ViewHolder{
     private final SparseArray<View> mViews;
     private View mConvertView;
     private int mLayoutId;
+
 
     public BaseViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
         this.mViews = new SparseArray<>();
         this.mLayoutId = layoutId;
         mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         mConvertView.setTag(this);
+    }
 
+    public BaseViewHolder(Context context, ViewGroup parent, int layoutId) {
+        this.mViews = new SparseArray<>();
+        this.mLayoutId = layoutId;
+        mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
+        mConvertView.setTag(this);
     }
 
     public <T extends View> T getView(int viewId) {

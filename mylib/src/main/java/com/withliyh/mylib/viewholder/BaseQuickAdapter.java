@@ -15,7 +15,11 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mDatas;
     protected int mLayoutId;
-    protected TypeSupport<T> mTypeSupport;
+    protected SupportType<T> mTypeSupport; //多类型支持
+
+    protected boolean mEnableLoadMore;     //是否开启加载更多
+
+
 
     public BaseQuickAdapter(Context context, int layoutId, List<T> datas) {
         this.mContext = context;
@@ -23,7 +27,7 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
         this.mDatas = datas;
     }
 
-    public BaseQuickAdapter(Context context, TypeSupport<T> typeSupport, List<T> datas) {
+    public BaseQuickAdapter(Context context, SupportType<T> typeSupport, List<T> datas) {
         this.mContext = context;
         this.mTypeSupport = typeSupport;
         this.mDatas = datas;
@@ -31,6 +35,11 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
+        if (mEnableLoadMore) {
+            if (position == mDatas.size() -1) {
+                return ViewHolder.FIRST_TYPE_ITEM;
+            }
+        }
         if (mTypeSupport != null) {
             return mTypeSupport.getItemViewType(position, mDatas.get(position));
         }
@@ -39,15 +48,22 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
+        int typeCount = super.getViewTypeCount();
         if (mTypeSupport != null) {
-            //因为类型从0开始，设为1标识有2中类型
-            return mTypeSupport.getViewTypeCount() - 1;
+            //如果 类型数位 2，  getItemViewType 的有效值只能是 0、1
+            typeCount = mTypeSupport.getViewTypeCount();
         }
-        return super.getViewTypeCount();
+        if (mEnableLoadMore) {
+            typeCount = typeCount + 1;
+        }
+        return typeCount;
     }
 
     @Override
     public int getCount() {
+        if (mEnableLoadMore) {
+            return mDatas.size() + 1;
+        }
         return mDatas.size();
     }
 
@@ -63,12 +79,12 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final BaseViewHolder viewHolder = getViewHolder(position, convertView, parent);
+        final ViewHolder viewHolder = getViewHolder(position, convertView, parent);
         convert(viewHolder, getItem(position));
         return viewHolder.getConvertView();
     }
 
-    public abstract BaseViewHolder getViewHolder(int position, View convertView, ViewGroup parent);
+    public abstract ViewHolder getViewHolder(int position, View convertView, ViewGroup parent);
 
-    public abstract void convert(BaseViewHolder helper, T item);
+    public abstract void convert(ViewHolder helper, T item);
 }

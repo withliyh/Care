@@ -14,12 +14,15 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
         super(context, layoutId, datas);
     }
 
-    public QuickAdapter(Context context, TypeSupport<T> typeSupport, List<T> datas) {
+    public QuickAdapter(Context context, SupportType<T> typeSupport, List<T> datas) {
         super(context, typeSupport, datas);
     }
 
     @Override
     public BaseViewHolder getViewHolder(int position, View convertView, ViewGroup parent) {
+        if (getItemViewType(position) == ViewHolder.FIRST_TYPE_ITEM) {
+            return getLoadHolder(mContext, convertView, parent);
+        }
         if (mTypeSupport != null) {
             int layoutId = mTypeSupport.getLayoutId(position, mDatas.get(position));
             return get(mContext, convertView, parent, layoutId, position);
@@ -27,6 +30,14 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
         return get(mContext, convertView, parent, mLayoutId, position);
     }
 
+    private BaseViewHolder getLoadHolder(Context context, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LoadMoreHolder viewHolder = null;
+            initViewExtra(viewHolder);
+            return viewHolder;
+        }
+        return (BaseViewHolder) convertView.getTag();
+    }
 
     private BaseViewHolder get(Context context, View convertView, ViewGroup parent, int layoutId, int position) {
         if (convertView == null) {

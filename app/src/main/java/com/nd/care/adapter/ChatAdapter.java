@@ -6,7 +6,7 @@ import com.nd.care.ChatMessage;
 import com.nd.care.R;
 import com.withliyh.mylib.viewholder.BaseViewHolder;
 import com.withliyh.mylib.viewholder.QuickAdapter;
-import com.withliyh.mylib.viewholder.TypeSupport;
+import com.withliyh.mylib.viewholder.SupportType;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class ChatAdapter extends QuickAdapter<ChatMessage> {
 
     }
 
-    private static class MultiItemTypeSupport implements TypeSupport<ChatMessage> {
+    private static class MultiItemTypeSupport implements SupportType<ChatMessage> {
         @Override
         public int getLayoutId(int position, ChatMessage msg) {
             if (msg.isComMeg()) {
