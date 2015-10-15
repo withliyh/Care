@@ -11,10 +11,12 @@ import android.widget.TextView;
 /**
  * Created by Administrator on 2015/10/13.
  */
-public class BaseViewHolder implements ViewHolder{
-    private final SparseArray<View> mViews;
-    private View mConvertView;
-    private int mLayoutId;
+public class BaseViewHolder {
+
+    public final static int FIRST_TYPE_ITEM = 0;
+    protected final SparseArray<View> mViews;
+    protected int mLayoutId;
+    protected View mConvertView;
 
 
     public BaseViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
@@ -24,11 +26,8 @@ public class BaseViewHolder implements ViewHolder{
         mConvertView.setTag(this);
     }
 
-    public BaseViewHolder(Context context, ViewGroup parent, int layoutId) {
+    public BaseViewHolder() {
         this.mViews = new SparseArray<>();
-        this.mLayoutId = layoutId;
-        mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
-        mConvertView.setTag(this);
     }
 
     public <T extends View> T getView(int viewId) {

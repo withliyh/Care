@@ -33,17 +33,21 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
         this.mDatas = datas;
     }
 
+    public List<T> getData() {
+        return mDatas;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (mEnableLoadMore) {
-            if (position == mDatas.size() -1) {
-                return ViewHolder.FIRST_TYPE_ITEM;
+            if (position == mDatas.size()) {
+                return BaseViewHolder.FIRST_TYPE_ITEM;
             }
         }
         if (mTypeSupport != null) {
             return mTypeSupport.getItemViewType(position, mDatas.get(position));
         }
-        return super.getItemViewType(position);
+        return 1;
     }
 
     @Override
@@ -69,6 +73,7 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public T getItem(int position) {
+        if (position >= mDatas.size()) return null;
         return mDatas.get(position);
     }
 
@@ -79,12 +84,13 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder = getViewHolder(position, convertView, parent);
+        final BaseViewHolder viewHolder = getViewHolder(position, convertView, parent);
+        if (viewHolder instanceof LoadMoreHolder) return viewHolder.getConvertView();
         convert(viewHolder, getItem(position));
         return viewHolder.getConvertView();
     }
 
-    public abstract ViewHolder getViewHolder(int position, View convertView, ViewGroup parent);
+    public abstract BaseViewHolder getViewHolder(int position, View convertView, ViewGroup parent);
 
-    public abstract void convert(ViewHolder helper, T item);
+    public abstract void convert(BaseViewHolder helper, T item);
 }

@@ -1,15 +1,16 @@
 package com.withliyh.mylib.viewholder;
 
 import android.content.Context;
-import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by Administrator on 2015/10/15.
  */
 public interface SupportLoad {
 
-    View getView(Context context, View parent);
+    BaseViewHolder createHolder(Context context, ViewGroup parent);
     void onLoading(BaseViewHolder helper);
     void onLoadSuccess(BaseViewHolder helper);
-    void onLoadFalure(BaseViewHolder helper);
+
+    void onLoadFailure(BaseViewHolder helper);
 }

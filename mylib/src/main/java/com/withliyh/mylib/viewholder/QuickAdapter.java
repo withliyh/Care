@@ -9,6 +9,7 @@ import java.util.List;
 
 public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
 
+    private BaseViewHolder mLoadMoreViewHolder;
 
     public QuickAdapter(Context context, int layoutId, List<T> datas) {
         super(context, layoutId, datas);
@@ -20,7 +21,7 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
 
     @Override
     public BaseViewHolder getViewHolder(int position, View convertView, ViewGroup parent) {
-        if (getItemViewType(position) == ViewHolder.FIRST_TYPE_ITEM) {
+        if (getItemViewType(position) == BaseViewHolder.FIRST_TYPE_ITEM) {
             return getLoadHolder(mContext, convertView, parent);
         }
         if (mTypeSupport != null) {
@@ -32,9 +33,8 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
 
     private BaseViewHolder getLoadHolder(Context context, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LoadMoreHolder viewHolder = null;
-            initViewExtra(viewHolder);
-            return viewHolder;
+            SupportLoad supportLoad = (SupportLoad) mLoadMoreViewHolder;
+            return supportLoad.createHolder(context, parent);
         }
         return (BaseViewHolder) convertView.getTag();
     }
@@ -52,6 +52,11 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
             return viewHolder;
         }
         return existHolder;
+    }
+
+    public void setLoadMoreViewHolder(BaseViewHolder holder) {
+        mEnableLoadMore = true;
+        mLoadMoreViewHolder = holder;
     }
 
     /**

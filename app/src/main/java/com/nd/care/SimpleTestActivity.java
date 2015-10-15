@@ -8,13 +8,16 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.withliyh.mylib.viewholder.BaseViewHolder;
+import com.withliyh.mylib.viewholder.LoadMoreHolder;
 import com.withliyh.mylib.viewholder.QuickAdapter;
+import com.withliyh.mylib.viewholder.SimpleLoadHolder;
 
 import java.util.LinkedList;
 
 public class SimpleTestActivity extends Activity {
 
     static int mCur = 0;
+    static int mFootCur = 0;
     private ListView mListView;
     private LinkedList<Bean> mDatas = new LinkedList<Bean>();
     private SwipeRefreshLayout mSwipe;
@@ -57,6 +60,32 @@ public class SimpleTestActivity extends Activity {
 
         };
 
+        LoadMoreHolder loadHolder = new SimpleLoadHolder(mAdapter, R.layout.loadmorelayout) {
+
+            @Override
+            public void onLoading(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在加载");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFootDatas(mFootCur);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onLoadSuccess(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在成功");
+            }
+
+            @Override
+            public void onLoadFailure(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在失败");
+            }
+        };
+
+        mAdapter.setLoadMoreViewHolder(loadHolder);
         // 设置适配器
         mListView.setAdapter(mAdapter);
 
@@ -71,7 +100,7 @@ public class SimpleTestActivity extends Activity {
                         initDatas(mCur);
                         mAdapter.notifyDataSetChanged();
                     }
-                }, 5000);
+                }, 3000);
             }
         });
 
@@ -83,6 +112,16 @@ public class SimpleTestActivity extends Activity {
             bean = new Bean("美女一只", "周三早上捡到妹子一只，在食堂二楼", String.valueOf(i), "20130240122");
             mDatas.addFirst(bean);
             mCur = i;
+        }
+
+    }
+
+    private void initFootDatas(int cur) {
+        for (int i = cur - 1; i >= cur - 10; i--) {
+            Bean bean = null;
+            bean = new Bean("美女一只", "周三早上捡到妹子一只，在食堂二楼", String.valueOf(i), "20130240122");
+            mDatas.addLast(bean);
+            mFootCur = i;
         }
 
     }
