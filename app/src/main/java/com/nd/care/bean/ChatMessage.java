@@ -1,4 +1,4 @@
-package com.nd.care;
+package com.nd.care.bean;
 
 public class ChatMessage {
     public final static int RECIEVE_MSG = 1;

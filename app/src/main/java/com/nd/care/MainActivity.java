@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 public class MainActivity extends ListActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,8 @@ public class MainActivity extends ListActivity {
                 new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1, Arrays.asList(
                         "Simple Adapter Text", "MultiItemStyleText")));
+
+
     }
 
     @Override

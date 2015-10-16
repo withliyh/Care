@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.nd.care.adapter.ChatAdapter;
+import com.nd.care.bean.ChatMessage;
 import com.withliyh.mylib.viewholder.QuickAdapter;
 
 import java.util.ArrayList;

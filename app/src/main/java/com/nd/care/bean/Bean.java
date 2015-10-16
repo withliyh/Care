@@ -1,4 +1,4 @@
-package com.nd.care;
+package com.nd.care.bean;
 
 public class Bean {
     private String title;

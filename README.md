@@ -37,7 +37,7 @@
  
  import android.content.Context;
  
- import com.nd.care.ChatMessage;
+ import com.nd.care.bean.ChatMessage;
  import com.nd.care.R;
  import com.withliyh.mylib.viewholder.BaseViewHolder;
  import com.withliyh.mylib.viewholder.QuickAdapter;

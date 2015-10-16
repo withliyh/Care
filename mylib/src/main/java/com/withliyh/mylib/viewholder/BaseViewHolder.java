@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * Created by Administrator on 2015/10/13.
  */
@@ -17,11 +19,12 @@ public class BaseViewHolder {
     protected final SparseArray<View> mViews;
     protected int mLayoutId;
     protected View mConvertView;
-
+    private Context mContext;
 
     public BaseViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
         this.mViews = new SparseArray<>();
         this.mLayoutId = layoutId;
+        this.mContext = context;
         mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         mConvertView.setTag(this);
     }
@@ -63,6 +66,12 @@ public class BaseViewHolder {
     public BaseViewHolder setImageResource(int viewId, int resId) {
         ImageView view = getView(viewId);
         view.setImageResource(resId);
+        return this;
+    }
+
+    public BaseViewHolder setImageUrl(int viewId, String url) {
+        ImageView view = getView(viewId);
+        Glide.with(mContext).load(url).into(view);
         return this;
     }
 }
