@@ -1,8 +1,8 @@
 package com.nd.care;
 
 public class ChatMessage {
-    public final static int RECIEVE_MSG = 0;
-    public final static int SEND_MSG = 1;
+    public final static int RECIEVE_MSG = 1;
+    public final static int SEND_MSG = 2;
     private int icon;
     private String name;
     private String content;

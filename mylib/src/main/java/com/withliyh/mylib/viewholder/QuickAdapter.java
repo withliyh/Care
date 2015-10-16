@@ -46,11 +46,11 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T> {
             return viewHolder;
         }
         BaseViewHolder existHolder = (BaseViewHolder) convertView.getTag();
-        if (existHolder.getLayoutId() != layoutId) {
-            BaseViewHolder viewHolder = new BaseViewHolder(context, parent, layoutId, position);
-            initViewExtra(viewHolder);
-            return viewHolder;
-        }
+//        if (existHolder.getLayoutId() != layoutId) {
+//            BaseViewHolder viewHolder = new BaseViewHolder(context, parent, layoutId, position);
+//            initViewExtra(viewHolder);
+//            return viewHolder;
+//        }
         return existHolder;
     }
 

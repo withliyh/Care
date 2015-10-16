@@ -54,12 +54,11 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
     public int getViewTypeCount() {
         int typeCount = super.getViewTypeCount();
         if (mTypeSupport != null) {
-            //如果 类型数位 2，  getItemViewType 的有效值只能是 0、1
             typeCount = mTypeSupport.getViewTypeCount();
         }
-        if (mEnableLoadMore) {
-            typeCount = typeCount + 1;
-        }
+        // 0 为保留项，自定义类型从1开始
+        typeCount = typeCount + 1;
+
         return typeCount;
     }
 
@@ -73,7 +72,7 @@ public abstract class BaseQuickAdapter<T> extends BaseAdapter {
 
     @Override
     public T getItem(int position) {
-        if (position >= mDatas.size()) return null;
+        if (position >= mDatas.size()) {return null;}
         return mDatas.get(position);
     }
 
