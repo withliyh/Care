@@ -15,6 +15,10 @@ public abstract class SimpleLoadHolder<T> extends LoadMoreHolder {
         this.mAdapter = adapter;
     }
 
+    public QuickAdapter<T> getAdapter() {
+        return mAdapter;
+    }
+
     @Override
     public BaseViewHolder createHolder(Context context, ViewGroup parent) {
         mConvertView = LayoutInflater.from(context).inflate(mLayoutId, parent, false);

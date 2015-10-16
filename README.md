@@ -106,3 +106,37 @@
  }
  
 ```
+
+### 支持加载更多
+
+```Java
+ LoadMoreHolder loadHolder = new SimpleLoadHolder<Bean>(mAdapter, R.layout.loadmorelayout) {
+
+            @Override
+            public void onLoading(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在加载");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFootDatas(mFootCur);
+                        getAdapter().notifyDataSetChanged();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onLoadSuccess(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在成功");
+            }
+
+            @Override
+            public void onLoadFailure(BaseViewHolder helper) {
+                helper.setText(R.id.txtLoadmore, "正在失败");
+            }
+        };
+
+        mAdapter.setLoadMoreViewHolder(loadHolder);
+        // 设置适配器
+        mListView.setAdapter(mAdapter);
+
+```

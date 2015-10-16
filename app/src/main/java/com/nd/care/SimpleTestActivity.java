@@ -60,7 +60,7 @@ public class SimpleTestActivity extends Activity {
 
         };
 
-        LoadMoreHolder loadHolder = new SimpleLoadHolder(mAdapter, R.layout.loadmorelayout) {
+        LoadMoreHolder loadHolder = new SimpleLoadHolder<Bean>(mAdapter, R.layout.loadmorelayout) {
 
             @Override
             public void onLoading(BaseViewHolder helper) {
@@ -69,7 +69,7 @@ public class SimpleTestActivity extends Activity {
                     @Override
                     public void run() {
                         initFootDatas(mFootCur);
-                        mAdapter.notifyDataSetChanged();
+                        getAdapter().notifyDataSetChanged();
                     }
                 }, 3000);
             }
