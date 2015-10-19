@@ -12,11 +12,18 @@ buildscript {
     }
 }
 
+//allprojects {
+//    repositories {
+//        jcenter()
+//    }
+//}
+
 allprojects {
     repositories {
-        jcenter()
+        maven{ url 'http://maven.oschina.net/content/groups/public/'}
     }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

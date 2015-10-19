@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.withliyh.mylib.http.VolleyEx;
+
 import java.util.Arrays;
 
 public class MainActivity extends ListActivity {
@@ -15,6 +17,7 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        VolleyEx.getInstance().init(this);
 
         getListView().setAdapter(
                 new ArrayAdapter<String>(this,
