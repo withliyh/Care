@@ -14,21 +14,21 @@ import java.lang.reflect.Type;
 /**
  * Created by Administrator on 2015/10/19.
  */
-public class GsonPostRequest<T> extends JsonRequest<T> {
+public class GsonRequest<T> extends JsonRequest<T> {
 
     private final Type type;
     private Gson gson;
     private Response.Listener<T> listener;
 
 
-    public GsonPostRequest(final String url,
+    public GsonRequest(final String url,
                            final Type type,
                            Response.Listener<T> listener,
                            Response.ErrorListener errorListener) {
         this(Method.GET, url, null, type, new Gson(), listener, errorListener);
     }
 
-    public GsonPostRequest(final String url,
+    public GsonRequest(final String url,
                            final String requestBody,
                            final Type type,
                            Response.Listener<T> listener,
@@ -36,7 +36,7 @@ public class GsonPostRequest<T> extends JsonRequest<T> {
         this(Method.POST, url, requestBody, type, new Gson(), listener, errorListener);
     }
 
-    public GsonPostRequest(final int method,
+    public GsonRequest(final int method,
                            final String url,
                            final String requestBody,
                            final Type type,

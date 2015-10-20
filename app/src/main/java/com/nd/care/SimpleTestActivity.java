@@ -8,7 +8,7 @@ import android.widget.ListView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.nd.care.bean.MeiZiTu;
-import com.withliyh.mylib.http.GsonGetRequest;
+import com.withliyh.mylib.http.GsonRequest;
 import com.withliyh.mylib.http.VolleyEx;
 import com.withliyh.mylib.viewholder.BaseViewHolder;
 import com.withliyh.mylib.viewholder.QuickAdapter;
@@ -58,7 +58,7 @@ public class SimpleTestActivity extends Activity {
     }
 
 
-    GsonGetRequest<MeiZiTu> req = ApiRequest.getMeiZiTuRequest(new Response.Listener<MeiZiTu>() {
+    GsonRequest<MeiZiTu> req = ApiRequest.getMeiZiTuRequest(new Response.Listener<MeiZiTu>() {
         @Override
         public void onResponse(MeiZiTu response) {
             mSwipe.setRefreshing(false);
