@@ -15,22 +15,45 @@ import java.lang.reflect.Type;
  * Created by Administrator on 2015/10/19.
  */
 public class GsonPostRequest<T> extends JsonRequest<T> {
-    private final Gson gson;
+
     private final Type type;
-    private final Response.Listener<T> listener;
+    private Gson gson;
+    private Response.Listener<T> listener;
 
 
     public GsonPostRequest(final String url,
-                           final String body,
+                           final Type type,
+                           Response.Listener<T> listener,
+                           Response.ErrorListener errorListener) {
+        this(Method.GET, url, null, type, new Gson(), listener, errorListener);
+    }
+
+    public GsonPostRequest(final String url,
+                           final String requestBody,
+                           final Type type,
+                           Response.Listener<T> listener,
+                           Response.ErrorListener errorListener) {
+        this(Method.POST, url, requestBody, type, new Gson(), listener, errorListener);
+    }
+
+    public GsonPostRequest(final int method,
+                           final String url,
+                           final String requestBody,
                            final Type type,
                            final Gson gson,
-                           final Response.Listener<T> listener,
-                           final Response.ErrorListener errorListener) {
-        super(Method.POST, url, body, listener, errorListener);
+                           Response.Listener<T> listener,
+                           Response.ErrorListener errorListener) {
+        super(method, url, requestBody, listener, errorListener);
 
         this.gson = gson;
         this.type = type;
         this.listener = listener;
+    }
+
+    @Override
+    protected void onFinish() {
+        super.onFinish();
+        this.listener = null;
     }
 
     @Override
@@ -47,6 +70,6 @@ public class GsonPostRequest<T> extends JsonRequest<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        listener.onResponse(response);
+        if (listener != null) { listener.onResponse(response);}
     }
 }
